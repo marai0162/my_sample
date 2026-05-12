@@ -2,6 +2,7 @@ const CACHE_NAME = "my-sample-pwa-v4";
 const ASSETS = [
   "./",
   "./index.html",
+  "./marimo_home.html",
   "./manifest.webmanifest",
   "./icons/icon-192.png"
 ];
