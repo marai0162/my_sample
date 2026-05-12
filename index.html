@@ -1,0 +1,66 @@
+<img src="./qr/my_sample.png" alt="QR code" width="256" height="256">
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>my_sample PWA</title>
+
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#2563eb" />
+
+  <!-- iOS向け（最低限） -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+</head>
+
+<body>
+  <h1>my_sample PWA 荒井</h1>
+  <p id="status">読み込み中…</p>
+
+  <h2>現在作成中の PWA 荒井</h2>
+
+  <button id="installBtn" hidden>インストール</button>
+
+  <hr />
+  <p>
+    オフライン確認：いったん開いた後、機内モードにして再読み込みしてみてください。
+  </p>
+
+  <script>
+    // Service Worker 登録（GitHub PagesはHTTPSなのでOK）
+    const statusEl = document.getElementById("status");
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", async () => {
+        try {
+          await navigator.serviceWorker.register("./sw.js");
+          statusEl.textContent = "Service Worker 登録済み（オフライン対応）";
+        } catch (e) {
+          statusEl.textContent = "Service Worker 登録失敗: " + e;
+        }
+      });
+    } else {
+      statusEl.textContent = "このブラウザはService Worker非対応です。";
+    }
+
+    // インストールボタン（主にAndroid/Chrome系）
+    let deferredPrompt = null;
+    const btn = document.getElementById("installBtn");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      btn.hidden = false;
+    });
+
+    btn.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      btn.hidden = true;
+    });
+  </script>
+</body>
+</html>
