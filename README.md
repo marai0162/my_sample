@@ -1,3 +1,3 @@
 # my_sample
-html
-<img src="./qr/my_sample.png" alt="QR code" width="256" height="256">
+![my_sample QR](qr/my_sample.png)
+URL: https://marai0162.github.io/my_sample/
