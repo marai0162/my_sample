@@ -11,5 +11,5 @@
 - 
 <br><br>
 
-![my_sample QR](qr/my_sample.png)
+![my_sample QR](qr/my_sample.png)<br>
 URL: https://marai0162.github.io/my_sample/
